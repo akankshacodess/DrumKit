@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS Drum Kit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <body background="drum.avif">
+        <div class="keys">
+            <div data-key="65" class="key">
+                <button class="1"><kbd>A</kbd>
+                    <span class="sound">clap</span></button>
+            </div>
+            <div data-key="83" class="key">
+                <button><kbd>S</kbd>
+                    <span class="sound">hihat</span></button>
+            </div>
+            <div data-key="68" class="key">
+                <button><kbd>D</kbd>
+                    <span class="sound">kick</span></button>
+            </div>
+            <div data-key="70" class="key">
+                <button><kbd>F</kbd>
+                    <span class="sound">openhat</span></button>
+            </div>
+            <div data-key="71" class="key">
+                <button><kbd>G</kbd>
+                    <span class="sound">click</span></button>
+            </div>
+            <div data-key="72" class="key">
+                <button><kbd>H</kbd>
+                    <span class="sound">ride</span></button>
+            </div>
+            <div data-key="74" class="key">
+                <button><kbd>J</kbd>
+                    <span class="sound">snare</span></button>
+            </div>
+            <div data-key="75" class="key">
+                <button><kbd>K</kbd>
+                    <span class="sound">tom</span></button>
+            </div>
+            <div data-key="76" class="key">
+                <button><kbd>L</kbd>
+                    <span class="sound">coin</span></button>
+            </div>
+        </div>
+        <audio data-key="65"
+            src="https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/REAL%20LIVE%20KITS/A%20Real%20Freakin%20Drum%20Kit/88[kb]real-01BB1-snare-R2M.wav.mp3"></audio>
+        <audio data-key="83"
+            src="https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/REAL%20LIVE%20KITS/A%20Real%20Freakin%20Drum%20Kit/71[kb]real-03PD.UF-HiHat-A-L.wav.mp3"></audio>
+        <audio data-key="68"
+            src="https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/REAL%20LIVE%20KITS/Band%20Called%20Yes/48[kb]yes-kick.wav.mp3"></audio>
+        <audio data-key="70"
+            src="https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/REAL%20LIVE%20KITS/Multisampled%20Real%20Kit%20BJ-HD9/699[kb]PHatA3Openmf1.wav.mp3"></audio>
+        <audio data-key="71"
+            src="https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/LO%20FI%20and%208%20BIT%20KITS/CASIO%20VL-1/6[kb]vl-1-03.wav.mp3"></audio>
+        <audio data-key="72"
+            src="https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/REAL%20LIVE%20KITS/Another%20Real%20Life%20Kit/206[kb]real-life-RIDE.WAV.mp3"></audio>
+        <audio data-key="74"
+            src="https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/REAL%20LIVE%20KITS/A%20Real%20Freakin%20Drum%20Kit/184[kb]real-snare-roll.wav.mp3"></audio>
+        <audio data-key="75"
+            src="https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/REAL%20LIVE%20KITS/Band%20Called%20Yes/68[kb]yes-tom1.wav.mp3"></audio>
+        <audio data-key="76"
+            src="https://sampleswap.org/samples-ghost/DRUMS%20(FULL%20KITS)/LO%20FI%20and%208%20BIT%20KITS/8%20Bit%20Videogame%20Kit/18[kb]8bitkit-coin-2.wav.mp3"></audio>
+
+        <script>
+            function playSound(e) {
+                const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+                const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+                if (!audio) return;
+                audio.currentTime = 0;
+                audio.play();
+                key.classList.add('playing');
+            }
+            function removeTransition(e) {
+                if (e.propertyName !== 'transform') return;
+                this.classList.remove('playing');
+            }
+            const keys = document.querySelectorAll('.key');
+            keys.forEach(key=>key.addEventListener('transitioned', removeTransition));
+            window.addEventListener('keydown', playSound);
+            setTimeout(function(){
+                activeButton.classList.remove('playing');
+            },100);
+        </script>
+    </body>
+
+</html>
